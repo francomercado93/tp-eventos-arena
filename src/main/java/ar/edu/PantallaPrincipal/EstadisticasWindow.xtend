@@ -7,7 +7,7 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.MainWindow
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-
+//dd
 class EstadisticasWindow extends MainWindow<Estadisticas>{
 	new(){
 		super(new Estadisticas)
