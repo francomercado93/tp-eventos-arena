@@ -20,6 +20,7 @@ class EstadisticasWindow extends MainWindow<Estadisticas>{
 			background = Color.GREEN
 			value <=> "cantidadTotalEventosOrganizados"
 		]
+		new Label(mainPanel).text = "Nuevo Label"
 	}
 	def static void main(String[] args) {
 		new EstadisticasWindow().startApplication
