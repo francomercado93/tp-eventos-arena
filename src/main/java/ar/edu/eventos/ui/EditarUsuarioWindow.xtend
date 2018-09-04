@@ -19,12 +19,6 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 	new(WindowOwner owner, Usuario model) {
 		super(owner, model)
-
-		title = defaultTitle
-	}
-
-	def defaultTitle() {
-		"Cambio de datos del usuario"
 	}
 
 	override createFormPanel(Panel mainPanel) {
@@ -78,8 +72,9 @@ class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 			new Selector(it) => [	
 
 				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoUsuario, "descripcion")
-				visible()	
+				//visible()	
 				value <=> "tipoUsuario"
+				//onSelection(|modelObject.cambiarTipoUsuario())
 			]
 		]
 	}

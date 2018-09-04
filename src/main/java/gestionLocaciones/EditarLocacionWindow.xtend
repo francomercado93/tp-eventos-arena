@@ -5,61 +5,59 @@ import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.NumericField
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
-class EditarLocacionWindow extends TransactionalDialog<Locacion>{
+class EditarLocacionWindow extends TransactionalDialog<Locacion> {
+
 	new(WindowOwner owner, Locacion model) {
 		super(owner, model)
-		title = defaultTitle
-		}
-		
-		def defaultTitle() {
-		"Cambio de datos de la Locacion"
-		}
-		
-		override createFormPanel(Panel mainPanel) {
-		val form = new Panel(mainPanel).layout = new ColumnLayout(2)
+	}
 
-		new Label(form).text = "Nombre"
+	override createFormPanel(Panel mainPanel) {
+		new Panel(mainPanel) => [
+			layout = new ColumnLayout(2)
 
-		new TextBox(form) => [
-			value <=> "descripcion"
-			width = 200
+			new Label(it).text = "Nombre:"
+
+			new TextBox(it) => [
+				value <=> "descripcion"
+				width = 200
+			]
+
+			new Label(it).text = "Superficie:"
+
+			new TextBox(it) => [
+				value <=> "superficie"
+				width = 200
+			]
+
+			new Label(it).text = "Ubicacion:"
+			crearPanelCoordenadas(it)
 		]
 
-		new Label(form).text = "Superficie"
+	}
 
-		new TextBox(form) => [
-			value <=> "superficie"
-			width = 200
+	def crearPanelCoordenadas(Panel panel) {
+		new Panel(panel) => [
+			layout = new ColumnLayout(2)
+			new Label(it).text = "Coordenada x:"
+			new TextBox(it) => [
+				(value <=> "puntoGeografico.x")
+				width = 100
+			]
+			new Label(it).text = "Coordenada y:"
+			new TextBox(it) => [
+				(value <=> "puntoGeografico.y")
+				width = 100
+			]
 		]
+	}
 
-		new Label(form).text = "coordenada X"
-
-		new NumericField(form) => [
-			value <=> "coordenadaX"
-			width = 200
-		]
-		
-		new Label(form).text = "coordenada Y"
-
-		new NumericField(form) => [
-			value <=> "coordenadaY"
-			width = 200
-		]
-		new Label(form).text = "coordenadas"
-			new Label(mainPanel) => [
-			value <=> "puntoGeograficos"
-		] 
-		
-		
-		}
-		override protected void addActions(Panel actions) {
+	override addActions(Panel actions) {
 		new Button(actions) => [
 			caption = "Aceptar"
 			onClick [|this.accept]
@@ -69,14 +67,7 @@ class EditarLocacionWindow extends TransactionalDialog<Locacion>{
 
 		new Button(actions) => [
 			caption = "Cancelar"
-			onClick [|
-				this.cancel
-			]
+			onClick [|this.cancel]
 		]
-		
-		
-		
-		
 	}
-		
-		}
+}

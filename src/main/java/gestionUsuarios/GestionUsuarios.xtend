@@ -14,27 +14,26 @@ class GestionUsuarios {
 
 	Usuario usuarioSeleccionado
 
-	def crearUsuario(Usuario unUsuario) {
-		getRepoUsuarios.create(unUsuario)
-
+	def crear(Usuario unUsuario) {
+		repositorio.create(unUsuario)
 	}
 
-	def eliminarUsuario() {
-		getRepoUsuarios.delete(usuarioSeleccionado)
+	def eliminar() {
+		repositorio.delete(usuarioSeleccionado)
 	}
 
-	def actualizarUsuario() {
-		getRepoUsuarios.update(usuarioSeleccionado)
+	def actualizar() {
+		repositorio.update(usuarioSeleccionado)
 	}
 
 	def updateMasivo() {
-		val repo = getRepoUsuarios
-		repo.updateService = new StubUpdateService
-		repo.conversion = new ConversionJson
-		repo.updateAll
+		val repoUsuarios = repositorio
+		repoUsuarios.updateService = new StubUpdateService
+		repoUsuarios.conversion = new ConversionJson
+		repoUsuarios.updateAll
 	}
 
-	def RepositorioUsuarios getRepoUsuarios() {
+	def RepositorioUsuarios getRepositorio() {
 		ApplicationContext.instance.getSingleton(typeof(Usuario)) as RepositorioUsuarios
 	}
 

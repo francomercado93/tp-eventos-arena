@@ -15,30 +15,39 @@ import org.uqbar.arena.windows.WindowOwner
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
+	
 	new(WindowOwner parent) {
 		super(parent, new GestionUsuarios)
+	}
+	
+	override createFormPanel(Panel mainPanel) {
+		new Panel(mainPanel) => [
+			layout = new HorizontalLayout
+			this.crearGridUsuarios(it)
+			this.createGridActions(it)
+		]
 	}
 	
 	def createGridActions(Panel mainPanel) {
 		val elementSelected = new NotNullObservable("usuarioSeleccionado")
 		new Panel(mainPanel)=>[
-			//layout = new VerticalLayout()
 			new Button(it) => [
 				caption = "Editar"
-				onClick([|this.editarUsuario])
-				setAsDefault
+				onClick([|this.editar])
+				disableOnError
 				bindEnabled(elementSelected)
 			]
 	
 			new Button(it) => [
 				caption = "Eliminar"
-				onClick([|modelObject.eliminarUsuario])
+				onClick([|modelObject.eliminar])
+				disableOnError
 				bindEnabled(elementSelected)
 			]
 	
 			new Button(it) => [
 				caption = "Nuevo usuario"
-				onClick([|this.crearUsuario])
+				onClick([|this.crear])
 			]
 			
 			new Button(it) => [
@@ -49,14 +58,10 @@ class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 		]
 	}
 	
-
-	override protected addActions(Panel actionsPanel) {
-	}
-
 	def crearGridUsuarios(Panel mainPanel) {
 		new Panel(mainPanel) => [
 			val table = new Table<Usuario>(it, typeof(Usuario)) => [
-				items <=> "repoUsuarios.lista"
+				items <=> "repositorio.lista"
 				value <=> "usuarioSeleccionado"
 				numberVisibleRows = 8
 			]
@@ -82,27 +87,22 @@ class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 	}
 	// ** Acciones
 	// ********************************************************
-	def void crearUsuario() {
+	def void crear() {
 		val usuario = new Usuario
 		new CrearUsuarioWindow(this, usuario) => [
-			onAccept[this.modelObject.crearUsuario(usuario)]
+			onAccept[this.modelObject.crear(usuario)]
 			open
 		]
 	}
 
-	def void editarUsuario() {
+	def void editar() {
 		new EditarUsuarioWindow(this, modelObject.usuarioSeleccionado) => [
-			onAccept[this.modelObject.actualizarUsuario()]
+			onAccept[this.modelObject.actualizar()]
 			open
 		]
 	}
 	
-	override createFormPanel(Panel mainPanel) {
-		new Panel(mainPanel) => [
-			layout = new HorizontalLayout
-			this.crearGridUsuarios(it)
-			this.createGridActions(it)
-		]
+	override protected addActions(Panel actionsPanel) {
 	}
 
 }

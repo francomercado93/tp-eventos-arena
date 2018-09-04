@@ -3,6 +3,7 @@ package runnables
 import ar.edu.eventos.EventoAbierto
 import ar.edu.eventos.EventoCerrado
 import ar.edu.eventos.Locacion
+import ar.edu.repositorios.RepositorioServicios
 import ar.edu.repositorios.RepositorioUsuarios
 import ar.edu.servicios.Servicio
 import ar.edu.servicios.TarifaFija
@@ -21,6 +22,7 @@ import org.uqbar.commons.applicationContext.ApplicationContext
 import org.uqbar.geodds.Point
 
 import static org.mockito.Mockito.*
+import ar.edu.repositorios.RepositorioLocacion
 
 class EventosBootstrap extends CollectionBasedBootstrap {
 
@@ -28,11 +30,20 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 	new() {
 
 		ApplicationContext.instance.configureSingleton(typeof(Usuario), new RepositorioUsuarios)
+		ApplicationContext.instance.configureSingleton(typeof(Servicio), new RepositorioServicios)
+		ApplicationContext.instance.configureSingleton(typeof(Locacion), new RepositorioLocacion)
 	}
 	
 	override run() {
 		val RepositorioUsuarios repoUsuario = ApplicationContext.instance.getSingleton(
 			typeof(Usuario)) as RepositorioUsuarios
+			
+		val RepositorioServicios repoServicios = ApplicationContext.instance.getSingleton(
+			typeof(Servicio)) as RepositorioServicios
+			
+		val RepositorioLocacion repoLocaciones = ApplicationContext.instance.getSingleton(
+			typeof(Locacion)) as RepositorioLocacion
+			
 		val animacionMago = new Servicio() => [
 			tipoTarifa = new TarifaPorHora(300, 12)
 			descripcion = "Animacion Mago"
@@ -166,7 +177,17 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 //			create(maria)
 //			create(gaston)
 		]
-
+		repoServicios =>[
+			create(animacionMago)
+			create(candyBarWillyWonka)
+			create(cateringFoodParty)
+		]
+		repoLocaciones => [
+			create(hipodromo)
+			create(hipodromoPalermo)
+			create(salonFiesta)
+			create(tecnopolis)
+		]
 	}
 	def CreditCardService mockearCreditCardServicePagoExitoso(CreditCard tarjeta, double valor) {
 		val servicioTarjeta = mock(typeof(CreditCardService))

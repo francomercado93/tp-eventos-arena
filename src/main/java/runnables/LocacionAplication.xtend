@@ -5,8 +5,8 @@ import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
 
 class LocacionAplication extends Application {
-		
-		new(EventosBootstrap bootstrap) {
+
+	new(EventosBootstrap bootstrap) {
 		super(bootstrap)
 	}
 
@@ -14,7 +14,7 @@ class LocacionAplication extends Application {
 		new LocacionAplication(new EventosBootstrap).start()
 	}
 
-	override  Window<?> createMainWindow() {
+	override Window<?> createMainWindow() {
 		return new GestionarLocacionWindow(this)
 	}
 }
