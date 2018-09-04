@@ -1,11 +1,12 @@
 package ar.edu.PantallaPrincipal
 
 import ar.edu.applicationModel.Estadisticas
+import ar.edu.eventos.Locacion
+import ar.edu.servicios.Servicio
+import ar.edu.servicios.TipoTarifa
 import ar.edu.usuarios.Usuario
-import java.awt.Color
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Column
@@ -36,16 +37,55 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 	}
 	
 	override createMainTemplate(Panel mainPanel){
-			val contentPanel1 = new Panel(mainPanel)
-			contentPanel1.layout = new HorizontalLayout() 
-			this.crearListadoEstadisticas(contentPanel1)
-			this.crearListadoUsuariosMasActivos(contentPanel1)
+			mainPanel.layout = new HorizontalLayout
+			val panelIzquierdo = new Panel(mainPanel)
+			val panelDerecho = new Panel(mainPanel)
+			this.crearListadoEstadisticas(panelIzquierdo)
+			this.crearListadoUsuariosMasActivos(panelDerecho)
+			this.crearListadoLocacionesMasPopulares(panelIzquierdo)
+			this.crearListadoServicios(panelDerecho)
 	}
 	
-	def crearListadoUsuariosMasActivos(Panel contentPanel1) {
-		val panelUsrs = new Panel(contentPanel1)=>[
-			layout = new VerticalLayout()
-			]
+	def crearListadoServicios(Panel panel) {
+		val panelServicios = new Panel(panel)
+		new Label(panelServicios).text = "Servicios:"
+		val tablaServicios = new Table<Servicio>(panelServicios, typeof(Servicio))=>[
+			items <=> "ultimosServiciosDadosDeAlta"
+			setNumberVisibleRows(5)
+		]
+		new Column<Servicio>(tablaServicios)=>[
+			title = "Nombre"
+			fixedSize = 130
+			bindContentsToProperty("descripcion")
+		]
+		new Column<Servicio>(tablaServicios)=>[
+			title = "Tarifa"
+			fixedSize = 130
+			bindContentsToProperty("tipoTarifa").transformer = [TipoTarifa tipoTarifa | "$ "+ tipoTarifa.costoFijo +" " + tipoTarifa.name ]
+		]
+	}
+	
+	def crearListadoLocacionesMasPopulares(Panel panel) {
+		val panelLocaciones = new Panel(panel)
+		new Label(panelLocaciones).text = "Locaciones:"
+		val tablaLocacion = new Table<Locacion>(panelLocaciones, typeof(Locacion))=>[
+			items <=> "locacionesMasPopulares"
+			setNumberVisibleRows(5)
+		]
+		new Column<Locacion>(tablaLocacion)=>[
+			title = "Nombre"
+			bindContentsToProperty("descripcion")
+			fixedSize = 130
+		]
+		new Column<Locacion>(tablaLocacion)=>[
+			title= "Capacidad"
+			bindContentsToProperty("capacidad")
+			fixedSize = 130
+		]	
+	}
+	
+	def crearListadoUsuariosMasActivos(Panel panel) {
+		val panelUsrs = new Panel(panel)
 			new Label(panelUsrs).text = "Usuarios mas activos:"	
 			val tablaUsrs = new Table<Usuario>(panelUsrs, typeof(Usuario))=>[
 				items <=> "usuariosMasActivos"
@@ -54,18 +94,18 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 		
 			new Column<Usuario>(tablaUsrs) =>[
 				title = "Username"
-				fixedSize = 200
+				fixedSize = 130
   				bindContentsToProperty("nombreUsuario")
 			]
 			new Column<Usuario>(tablaUsrs) =>[
 				title = "Nombre y apellido"
-				fixedSize = 200
+				fixedSize = 130
   				bindContentsToProperty("nombreApellido")
 			]
 	}
 	
-	def crearListadoEstadisticas(Panel contentPanel1){
-		new Panel(contentPanel1) => [
+	def crearListadoEstadisticas(Panel panel){
+		new Panel(panel) => [
 			layout = new ColumnLayout(2)
 				new Label(it).text = "Estadisticas:"
 				new Label(it).text = ""
