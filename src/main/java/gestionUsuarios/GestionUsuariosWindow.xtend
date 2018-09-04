@@ -1,4 +1,4 @@
- package gestionUsuarios
+package gestionUsuarios
 
 import ar.edu.usuarios.Usuario
 import org.uqbar.arena.widgets.Button
@@ -13,17 +13,13 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 	new(WindowOwner parent) {
 		super(parent, new GestionUsuarios)
-	
 		title = "Gestion de Usuarios"
 
 	}
 
 	override createContents(Panel mainPanel) {
-
 		super.createMainTemplate(mainPanel)
-
 		this.createResultsGrid(mainPanel)
-
 	}
 
 	override protected addActions(Panel actionsPanel) {

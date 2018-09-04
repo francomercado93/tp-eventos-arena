@@ -1,20 +1,20 @@
-package runnables
-
-import gestionServicios.GestionServiciosWindow
-import org.uqbar.arena.Application
-import org.uqbar.arena.windows.Window
-
-class ServiciosAplication extends Application {
-		new(BootrapServicios bootstrap) {
-		super(bootstrap)
-	}
-
-	static def void main(String[] args) {
-		new ServiciosAplication(new BootrapServicios).start()
-	}
-
-	override protected Window<?> createMainWindow() {
-		return new GestionServiciosWindow(this)
-	}
-	
-}
+//PACKAGE RUNNABLES
+//
+//IMPORT GESTIONSERVICIOS.GESTIONSERVICIOSWINDOW
+//IMPORT ORG.UQBAR.ARENA.APPLICATION
+//IMPORT ORG.UQBAR.ARENA.WINDOWS.WINDOW
+//
+//CLASS SERVICIOSAPLICATION EXTENDS APPLICATION {
+//		NEW(BOOTRAPSERVICIOS BOOTSTRAP) {
+//		SUPER(BOOTSTRAP)
+//	}
+//
+//	STATIC DEF VOID MAIN(STRING[] ARGS) {
+//		NEW SERVICIOSAPLICATION(NEW BOOTRAPSERVICIOS).START()
+//	}
+//
+//	OVERRIDE PROTECTED WINDOW<?> CREATEMAINWINDOW() {
+//		RETURN NEW GESTIONSERVICIOSWINDOW(THIS)
+//	}
+//	
+//}
