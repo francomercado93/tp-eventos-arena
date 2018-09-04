@@ -18,6 +18,7 @@ class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 	
 	new(WindowOwner parent) {
 		super(parent, new GestionUsuarios)
+		title = "Gestion usuarios"
 	}
 	
 	override createFormPanel(Panel mainPanel) {
