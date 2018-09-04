@@ -1,4 +1,4 @@
-package ar.edu.PantallaPrincipal
+package ar.edu.eventos.ui
 
 import ar.edu.main.Estadisticas
 import java.awt.Color

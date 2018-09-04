@@ -1,6 +1,10 @@
- package gestionUsuarios
+package gestionUsuarios
 
+import ar.edu.eventos.ui.CrearUsuarioWindow
+import ar.edu.eventos.ui.EditarUsuarioWindow
 import ar.edu.usuarios.Usuario
+import org.uqbar.arena.bindings.NotNullObservable
+import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Column
@@ -13,70 +17,69 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 	new(WindowOwner parent) {
 		super(parent, new GestionUsuarios)
+	}
 	
-		title = "Gestion de Usuarios"
-
+	def createGridActions(Panel mainPanel) {
+		val elementSelected = new NotNullObservable("usuarioSeleccionado")
+		new Panel(mainPanel)=>[
+			//layout = new VerticalLayout()
+			new Button(it) => [
+				caption = "Editar"
+				onClick([|this.editarUsuario])
+				setAsDefault
+				bindEnabled(elementSelected)
+			]
+	
+			new Button(it) => [
+				caption = "Eliminar"
+				onClick([|modelObject.eliminarUsuario])
+				bindEnabled(elementSelected)
+			]
+	
+			new Button(it) => [
+				caption = "Nuevo usuario"
+				onClick([|this.crearUsuario])
+			]
+			
+			new Button(it) => [
+				caption = "Update masivo"
+				onClick([|modelObject.updateMasivo])
+				setAsDefault
+			]
+		]
 	}
-
-	override createContents(Panel mainPanel) {
-
-		super.createMainTemplate(mainPanel)
-
-		this.createResultsGrid(mainPanel)
-
-	}
+	
 
 	override protected addActions(Panel actionsPanel) {
-
-		new Button(actionsPanel) => [
-			caption = "Editar"
-			onClick([|this.editarUsuario])
-			setAsDefault
-			disableOnError
-		]
-
-		new Button(actionsPanel) => [
-			caption = "Eliminar"
-			onClick([|modelObject.eliminarUsuario])
-		]
-
-		new Button(actionsPanel) => [
-			caption = "Nuevo Usuario"
-			onClick([|this.crearUsuario])
-		]
 	}
 
-	def protected createResultsGrid(Panel mainPanel) {
-		val table = new Table<Usuario>(mainPanel, typeof(Usuario)) => [
-			items <=> "repoUsuarios.lista"
-			value <=> "usuarioSeleccionado"
-			numberVisibleRows = 8
+	def crearGridUsuarios(Panel mainPanel) {
+		new Panel(mainPanel) => [
+			val table = new Table<Usuario>(it, typeof(Usuario)) => [
+				items <=> "repoUsuarios.lista"
+				value <=> "usuarioSeleccionado"
+				numberVisibleRows = 8
+			]
+			new Column<Usuario>(table) => [
+				title = "UserName"
+				fixedSize = 200
+				bindContentsToProperty("nombreUsuario")
+			]
+	
+			new Column<Usuario>(table) => [
+				title = "Nombre y Apellido"
+				fixedSize = 100
+				alignRight
+				bindContentsToProperty("nombreApellido")
+			]
+	
+			new Column<Usuario>(table) => [
+				title = "Email"
+				fixedSize = 200
+				bindContentsToProperty("mail")
+			]
 		]
-		this.describeResultsGrid(table)
 	}
-
-	def void describeResultsGrid(Table<Usuario> table) {
-		new Column<Usuario>(table) => [
-			title = "UserName"
-			fixedSize = 200
-			bindContentsToProperty("nombreUsuario")
-		]
-
-		new Column<Usuario>(table) => [
-			title = "Nombre y Apellido"
-			fixedSize = 100
-			alignRight
-			bindContentsToProperty("nombreApellido")
-		]
-
-		new Column<Usuario>(table) => [
-			title = "Email"
-			fixedSize = 200
-			bindContentsToProperty("mail")
-		]
-
-	}
-
 	// ** Acciones
 	// ********************************************************
 	def void crearUsuario() {
@@ -93,8 +96,13 @@ class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 			open
 		]
 	}
-
+	
 	override createFormPanel(Panel mainPanel) {
+		new Panel(mainPanel) => [
+			layout = new HorizontalLayout
+			this.crearGridUsuarios(it)
+			this.createGridActions(it)
+		]
 	}
 
 }

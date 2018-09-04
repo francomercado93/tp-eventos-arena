@@ -6,12 +6,12 @@ import gestionUsuarios.GestionUsuariosWindow
 
 class UsuariosAplication extends Application {
 
-	new(BootstrapUsuarios bootstrap) {
+	new(EventosBootstrap bootstrap) {
 		super(bootstrap)
 	}
 
 	static def void main(String[] args) {
-		new UsuariosAplication(new BootstrapUsuarios).start()
+		new UsuariosAplication(new EventosBootstrap).start()
 	}
 
 	override protected Window<?> createMainWindow() {
