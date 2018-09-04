@@ -1,12 +1,13 @@
 package ar.edu.eventos.ui
 
-import ar.edu.main.Estadisticas
+import ar.edu.applicationModel.Estadisticas
 import java.awt.Color
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.MainWindow
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+
 //dd
 class EstadisticasWindow extends MainWindow<Estadisticas>{
 	new(){
