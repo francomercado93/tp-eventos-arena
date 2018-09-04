@@ -1,6 +1,7 @@
 package gestionServicios
 
-
+import ar.edu.servicios.Servicio
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Column
@@ -9,11 +10,8 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
-import ar.edu.servicios.Servicio
 
-
+@Accessors
 class GestionServiciosWindow extends SimpleWindow<GestionServicios>{
 
 	new(WindowOwner parent) {
@@ -93,16 +91,17 @@ class GestionServiciosWindow extends SimpleWindow<GestionServicios>{
 	}
 
 	def void editarServicio() {
-		new EditarServicioWindow(this, modelObject.servicioSeleccionado) => [
+		new EditarServicioWindow(this,modelObject.servicioSeleccionado)=> [
 			onAccept[this.modelObject.actualizarServicio()]
-			open
-		]
+		open]
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
 	}
 
 
+
+	
 
 
 

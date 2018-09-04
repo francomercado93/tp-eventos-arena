@@ -37,4 +37,6 @@ class GestionServicios {
 	def RepositorioServicios getRepoServicios() {
 		ApplicationContext.instance.getSingleton(typeof(Servicio))
 	}
+	
+
 }

@@ -1,4 +1,4 @@
-package gestionUsuarios
+ package gestionUsuarios
 
 import ar.edu.usuarios.Usuario
 import org.uqbar.arena.widgets.Button
@@ -94,7 +94,7 @@ class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 		]
 	}
 
-	override protected createFormPanel(Panel mainPanel) {
+	override createFormPanel(Panel mainPanel) {
 	}
 
 }
