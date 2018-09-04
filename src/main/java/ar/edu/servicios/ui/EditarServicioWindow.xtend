@@ -1,4 +1,4 @@
-package gestionServicios
+package ar.edu.servicios.ui
 
 import ar.edu.servicios.Servicio
 import ar.edu.servicios.TipoTarifa

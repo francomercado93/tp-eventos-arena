@@ -1,8 +1,8 @@
-package runnables
+package ar.edu.tp.runnable
 
+import ar.edu.usuarios.ui.GestionUsuariosWindow
 import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
-import gestionUsuarios.GestionUsuariosWindow
 
 class UsuariosAplication extends Application {
 

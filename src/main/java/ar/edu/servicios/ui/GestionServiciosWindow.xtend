@@ -1,9 +1,11 @@
-package gestionServicios
+package ar.edu.servicios.ui
 
+import ar.edu.applicationModel.GestionServicios
 import ar.edu.servicios.Servicio
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Column
@@ -12,7 +14,6 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.layout.VerticalLayout
 
 @Accessors
 class GestionServiciosWindow extends SimpleWindow<GestionServicios> {

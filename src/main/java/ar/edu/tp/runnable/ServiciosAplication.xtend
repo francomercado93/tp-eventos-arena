@@ -1,6 +1,6 @@
-package runnables
+package ar.edu.tp.runnable
 
-import gestionServicios.GestionServiciosWindow
+import ar.edu.servicios.ui.GestionServiciosWindow
 import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
 

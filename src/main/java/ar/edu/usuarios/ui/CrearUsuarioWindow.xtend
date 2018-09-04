@@ -1,4 +1,4 @@
-package ar.edu.eventos.ui
+package ar.edu.usuarios.ui
 
 import ar.edu.usuarios.Usuario
 import org.uqbar.arena.windows.WindowOwner

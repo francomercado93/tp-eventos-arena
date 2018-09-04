@@ -1,6 +1,6 @@
-package runnables
+package ar.edu.tp.runnable
 
-import gestionLocaciones.GestionarLocacionWindow
+import ar.edu.locaciones.ui.GestionarLocacionWindow
 import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
 

@@ -1,4 +1,4 @@
-package gestionLocaciones
+package ar.edu.locaciones.ui
 
 import ar.edu.eventos.Locacion
 import org.uqbar.arena.aop.windows.TransactionalDialog

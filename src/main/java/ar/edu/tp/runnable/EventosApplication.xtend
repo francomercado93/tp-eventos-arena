@@ -1,11 +1,11 @@
 package ar.edu.tp.runnable
 
+import ar.edu.PantallaPrincipal.PantallaPrincipalWindow
 import ar.edu.repositorios.RepositorioUsuarios
 import ar.edu.usuarios.Usuario
 import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
 import org.uqbar.commons.applicationContext.ApplicationContext
-import ar.edu.PantallaPrincipal.PantallaPrincipalWindow
 
 class EventosApplication extends Application {
 	new(EventosBootstrap bootstrap) {

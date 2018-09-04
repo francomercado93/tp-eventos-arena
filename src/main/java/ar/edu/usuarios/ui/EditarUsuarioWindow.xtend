@@ -1,8 +1,7 @@
-package ar.edu.eventos.ui
+package ar.edu.usuarios.ui
 
 import ar.edu.usuarios.TipoUsuario
 import ar.edu.usuarios.Usuario
-import gestionUsuarios.LocalDateTransformer
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.HorizontalLayout

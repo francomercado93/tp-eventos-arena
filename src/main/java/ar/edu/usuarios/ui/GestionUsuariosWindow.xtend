@@ -1,6 +1,7 @@
-package gestionLocaciones
+package ar.edu.usuarios.ui
 
-import ar.edu.eventos.Locacion
+import ar.edu.applicationModel.GestionUsuarios
+import ar.edu.usuarios.Usuario
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
@@ -12,42 +13,43 @@ import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
-class GestionarLocacionWindow extends SimpleWindow<GestionarLocacion> {
-
+class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
+	
 	new(WindowOwner parent) {
-		super(parent, new GestionarLocacion)
+		super(parent, new GestionUsuarios)
+		title = "Gestion usuarios"
 	}
-
+	
 	override createFormPanel(Panel mainPanel) {
 		new Panel(mainPanel) => [
 			layout = new HorizontalLayout
-			this.crearGridLocaciones(it)
+			this.crearGridUsuarios(it)
 			this.createGridActions(it)
 		]
 	}
-
+	
 	def createGridActions(Panel mainPanel) {
-		val elementSelected = new NotNullObservable("locacionSeleccionada")
-		new Panel(mainPanel) => [
+		val elementSelected = new NotNullObservable("usuarioSeleccionado")
+		new Panel(mainPanel)=>[
 			new Button(it) => [
 				caption = "Editar"
 				onClick([|this.editar])
 				disableOnError
 				bindEnabled(elementSelected)
 			]
-
+	
 			new Button(it) => [
 				caption = "Eliminar"
 				onClick([|modelObject.eliminar])
 				disableOnError
 				bindEnabled(elementSelected)
 			]
-
+	
 			new Button(it) => [
-				caption = "Nueva Locacion"
+				caption = "Nuevo usuario"
 				onClick([|this.crear])
 			]
-
+			
 			new Button(it) => [
 				caption = "Update masivo"
 				onClick([|modelObject.updateMasivo])
@@ -55,53 +57,52 @@ class GestionarLocacionWindow extends SimpleWindow<GestionarLocacion> {
 			]
 		]
 	}
-
-	def crearGridLocaciones(Panel mainPanel) {
+	
+	def crearGridUsuarios(Panel mainPanel) {
 		new Panel(mainPanel) => [
-			val table = new Table<Locacion>(it, typeof(Locacion)) => [
+			val table = new Table<Usuario>(it, typeof(Usuario)) => [
 				items <=> "repositorio.lista"
-				value <=> "locacionSeleccionada"
+				value <=> "usuarioSeleccionado"
 				numberVisibleRows = 8
 			]
-			
-			new Column<Locacion>(table) => [
-				title = "Nombre"
-				fixedSize = 100
-				bindContentsToProperty("descripcion")
+			new Column<Usuario>(table) => [
+				title = "UserName"
+				fixedSize = 200
+				bindContentsToProperty("nombreUsuario")
 			]
 	
-			new Column<Locacion>(table) => [
-				title = "Superficie"
+			new Column<Usuario>(table) => [
+				title = "Nombre y Apellido"
 				fixedSize = 100
 				alignRight
-				bindContentsToProperty("superficie")
+				bindContentsToProperty("nombreApellido")
 			]
 	
-			new Column<Locacion>(table) => [
-				title = "coordenadas"
-				fixedSize = 100
-				bindContentsToProperty("puntoGeografico")
+			new Column<Usuario>(table) => [
+				title = "Email"
+				fixedSize = 200
+				bindContentsToProperty("mail")
 			]
+		]
+	}
+	// ** Acciones
+	// ********************************************************
+	def void crear() {
+		val usuario = new Usuario
+		new CrearUsuarioWindow(this, usuario) => [
+			onAccept[this.modelObject.crear(usuario)]
+			open
+		]
+	}
+
+	def void editar() {
+		new EditarUsuarioWindow(this, modelObject.usuarioSeleccionado) => [
+			onAccept[this.modelObject.actualizar()]
+			open
 		]
 	}
 	
 	override protected addActions(Panel actionsPanel) {
 	}
 
-	// ** Acciones
-	// ********************************************************
-	def void crear() {
-		val locacion = new Locacion
-		new CrearLocacionWindow(this, locacion) => [
-			onAccept[this.modelObject.crear(locacion)]
-			open
-		]
-	}
-
-	def void editar() {
-		new EditarLocacionWindow(this, modelObject.locacionSeleccionada) => [
-			onAccept[this.modelObject.actualizar()]
-			open
-		]
-	}
 }
