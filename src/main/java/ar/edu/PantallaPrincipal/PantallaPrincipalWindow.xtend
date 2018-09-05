@@ -62,6 +62,7 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 			fixedSize = 130
 			bindContentsToProperty("tipoTarifa").transformer = [TipoTarifa tipoTarifa | "$ "+ tipoTarifa.costoFijo +" " + tipoTarifa.descripcion ]
 		]
+
 		new Button(panelServicios) => [
 				caption = "Gestion de servicios"
 				onClick[ |new GestionServiciosWindow(this).open]
@@ -70,7 +71,7 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 	
 	def crearListadoLocacionesMasPopulares(Panel panel) {
 		val panelLocaciones = new Panel(panel)
-		new Label(panelLocaciones).text = "Locaciones:"
+		new Label(panelLocaciones).text = "Locaciones"
 		val tablaLocacion = new Table<Locacion>(panelLocaciones, typeof(Locacion))=>[
 			items <=> "locacionesMasPopulares"
 			setNumberVisibleRows(5)
@@ -85,6 +86,7 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 			bindContentsToProperty("capacidad")
 			fixedSize = 130
 		]	
+
 		new Button(panelLocaciones) => [
 				caption = "Gestion de locaciones"
 				onClick[ |new GestionarLocacionWindow(this).open]
@@ -109,9 +111,11 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 				fixedSize = 130
   				bindContentsToProperty("nombreApellido")
 			]
+			
 			new Button(panelUsrs) => [
 				caption = "Gestion de usuarios"
 				onClick[ |new GestionUsuariosWindow(this).open]
+
 			]
 	}
 	
@@ -120,14 +124,17 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 	def crearListadoEstadisticas(Panel panel){
 		new Panel(panel) => [
 			layout = new ColumnLayout(2)
-				new Label(it).text = "Estadisticas:"
+			
+				new Label(it).text = "Estadisticas"
 				new Label(it).text = ""
 				new Label(it).text = "Cantidad total de eventos:"
 				new Label(it)=>[
+					
 					value <=> "cantidadTotalEventosOrganizados"
 				]
 				new Label(it).text = "Eventos Ultimo mes:"
 				new Label(it)=>[
+					//background = Color.ORANGE
 					value <=> "cantidadEventosUltimoMes"
 				]
 				new Label(it).text = "Eventos exitosos:"
@@ -146,6 +153,8 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 				new Label(it)=>[
 					value <=> "cantidadInvitacionesEnviadas"
 				]
+				
+				new Label(it).text = "  "
 			]
 	}
 }

@@ -20,76 +20,79 @@ class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 		super(owner, model)
 	}
 
-	override createFormPanel(Panel mainPanel) {
-		new Panel(mainPanel) =>[
+	override protected createFormPanel(Panel mainPanel) {
+		new Panel(mainPanel) => [
 			layout = new HorizontalLayout
 			this.crearPanelIzquierdo(it)
 			this.crearPanelDerecho(it)
 		]
 	}
-	
+
 	def crearPanelDerecho(Panel panel) {
-		new Panel(panel)=>[
+		new Panel(panel) => [
 			layout = new VerticalLayout
 			new Label(it).text = "Email"
-	
+
 			new TextBox(it) => [
-				value <=> "mail"
+				
+				(value <=> "mail")//.transformer = new NotEmptyTransformer
+				//enabled
 				width = 200
 			]
-			
+
 			new Label(it).text = "FechaNacimiento"
-			
+
 			new TextBox(it) => [
 				visible()
-				(value <=>"fechaNacimiento").transformer = new LocalDateTransformer
+				(value <=> "fechaNacimiento")//.transformer = new NotNullTransformer
 				width = 200
 			]
 		]
 	}
-	
+
 	def crearPanelIzquierdo(Panel panel) {
-		new Panel(panel) =>[
+		//val campoNombreUsuario = new NotNullObservable("nombreUsuario")
+		new Panel(panel) => [
 			layout = new VerticalLayout
 
 			new Label(it).text = "Username:"
-	
+
 			new TextBox(it) => [
 				value <=> "nombreUsuario"
 				width = 200
 			]
-	
+
 			new Label(it).text = "Nombre y apellido:"
-	
+
 			new TextBox(it) => [
 				value <=> "nombreApellido"
 				width = 200
 			]
 
 			new Label(it).text = "Tipo de usuario:"
-	
-			new Selector(it) => [	
+
+			new Selector(it) => [
 
 				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoUsuario, "descripcion")
-				//visible()	
+				// visible()	
 				value <=> "tipoUsuario"
-				//onSelection(|modelObject.cambiarTipoUsuario())
+			// onSelection(|modelObject.cambiarTipoUsuario())
 			]
 		]
 	}
 
-	override addActions(Panel actions) {
+	override  protected void addActions(Panel actions) {
+
+		new Button(actions) => [
+			caption = "Cancelar"
+			onClick [|this.cancel]
+	
+		]
 		new Button(actions) => [
 			caption = "Aceptar"
 			onClick [|this.accept]
 			setAsDefault
 			disableOnError
 		]
-
-		new Button(actions) => [
-			caption = "Cancelar"
-			onClick [|this.cancel]
-		]
 	}
 }
- 
