@@ -72,10 +72,16 @@ class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 			]
 	
 			new Column<Usuario>(table) => [
-				title = "Nombre y Apellido"
+				title = "Nombre"
 				fixedSize = 100
 				alignRight
-				bindContentsToProperty("nombreApellido")
+				bindContentsToProperty("nombre")
+			]
+			new Column<Usuario>(table) => [
+				title = "Apellido"
+				fixedSize = 100
+				alignRight
+				bindContentsToProperty("apellido")
 			]
 	
 			new Column<Usuario>(table) => [

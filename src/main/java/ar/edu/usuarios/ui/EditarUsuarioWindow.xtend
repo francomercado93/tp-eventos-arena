@@ -34,9 +34,7 @@ class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 			new Label(it).text = "Email"
 
 			new TextBox(it) => [
-				
-				(value <=> "mail")//.transformer = new NotEmptyTransformer
-				//enabled
+				(value <=> "mail")
 				width = 200
 			]
 
@@ -44,31 +42,9 @@ class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 
 			new TextBox(it) => [
 				visible()
-				(value <=> "fechaNacimiento")//.transformer = new NotNullTransformer
+				(value <=> "fechaNacimiento").transformer = new LocalDateTransformer
 				width = 200
 			]
-		]
-	}
-
-	def crearPanelIzquierdo(Panel panel) {
-		//val campoNombreUsuario = new NotNullObservable("nombreUsuario")
-		new Panel(panel) => [
-			layout = new VerticalLayout
-
-			new Label(it).text = "Username:"
-
-			new TextBox(it) => [
-				value <=> "nombreUsuario"
-				width = 200
-			]
-
-			new Label(it).text = "Nombre y apellido:"
-
-			new TextBox(it) => [
-				value <=> "nombreApellido"
-				width = 200
-			]
-
 			new Label(it).text = "Tipo de usuario:"
 
 			new Selector(it) => [
@@ -81,12 +57,38 @@ class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 		]
 	}
 
-	override  protected void addActions(Panel actions) {
+	def crearPanelIzquierdo(Panel panel) {
+		new Panel(panel) => [
+			layout = new VerticalLayout
+
+			new Label(it).text = "Username:"
+
+			new TextBox(it) => [
+				value <=> "nombreUsuario"
+				width = 200
+			]
+
+			new Label(it).text = "Nombre:"
+
+			new TextBox(it) => [
+				value <=> "nombre"
+				width = 200
+			]
+			new Label(it).text = "Apellido:"
+
+			new TextBox(it) => [
+				value <=> "apellido"
+				width = 200
+			]
+		]
+	}
+
+	override protected void addActions(Panel actions) {
 
 		new Button(actions) => [
 			caption = "Cancelar"
 			onClick [|this.cancel]
-	
+
 		]
 		new Button(actions) => [
 			caption = "Aceptar"

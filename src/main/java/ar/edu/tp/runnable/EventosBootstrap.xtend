@@ -116,7 +116,8 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 		]
 		val maxi = new Usuario() => [
 			nombreUsuario = "maxi5"
-			nombreApellido = "Maxi Coronel"
+			nombre = "Maxi"
+			apellido = "Coronel"
 			mail = "maxigg@gmail.com"
 			setDireccion("Carlos Francisco Melo", 2356, "Vicente Lopez", "Buenos Aires",
 				new Point(-34.534199, -58.490467))
@@ -128,8 +129,9 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			radioCercania = 30
 		]
 		val juan = new Usuario() => [
-			nombreUsuario = "juan"
-			nombreApellido = "Juan Martin del Potro"
+			nombreUsuario= "juan"
+			nombre = "Juan Martin"
+			apellido = "Del Potro"
 			mail = "juan00@gmail.com"
 			setDireccion("Quintana", 2551, "San Martin", "Buenos Aires", new Point(-34.578651, -58.549614))
 			fechaHoraActual = LocalDateTime.of(2018, 03, 15, 22, 00)
@@ -141,7 +143,8 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 		
 		val agustina = new Usuario() => [
 			nombreUsuario = "agustina"
-			nombreApellido = "agustina pastor"
+			nombre = "Agustina"
+			apellido = "Pastor"
 			mail = "agus2000@gmail.com"
 			setDireccion("Quintana", 2551, "San Martin", "Buenos Aires", new Point(-34.578651, -58.549614))
 			fechaHoraActual = LocalDateTime.of(2018, 03, 15, 22, 00)
@@ -155,7 +158,8 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 		
 		val agustin = new Usuario() => [
 			nombreUsuario = "agustin"
-			nombreApellido = "agustin gonzalez"
+			nombre = "Agustin"
+			apellido = "Gonzalez"
 			mail = "agustinKpo@gmail.com"
 			setDireccion("Quintana", 2551, "San Martin", "Buenos Aires", new Point(-34.578651, -58.549614))
 			fechaHoraActual = LocalDateTime.of(2018, 03, 15, 22, 00)
