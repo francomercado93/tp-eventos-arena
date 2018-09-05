@@ -88,11 +88,8 @@ class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 
 		new Button(actions) => [
 			caption = "Cancelar"
-			onClick [|
-				this.cancel
-			]
+			onClick [|this.cancel]
 		]
-
 	}
 }
  

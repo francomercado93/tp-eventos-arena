@@ -2,11 +2,15 @@ package ar.edu.PantallaPrincipal
 
 import ar.edu.applicationModel.Estadisticas
 import ar.edu.eventos.Locacion
+import ar.edu.locaciones.ui.GestionarLocacionWindow
 import ar.edu.servicios.Servicio
 import ar.edu.servicios.TipoTarifa
+import ar.edu.servicios.ui.GestionServiciosWindow
 import ar.edu.usuarios.Usuario
+import ar.edu.usuarios.ui.GestionUsuariosWindow
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Column
@@ -23,11 +27,6 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 		modelObject.getUsuarios()
 		title = "Event OS"
 	}
-//	override createMainTemplate(Panel mainPanel) {
-//		super.createMainTemplate(mainPanel)
-//		//this.createResultsGrid(mainPanel)
-//		//this.createGridActions(mainPanel)
-//	}
 
 	override protected addActions(Panel actionsPanel) {
 
@@ -63,6 +62,10 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 			fixedSize = 130
 			bindContentsToProperty("tipoTarifa").transformer = [TipoTarifa tipoTarifa | "$ "+ tipoTarifa.costoFijo +" " + tipoTarifa.descripcion ]
 		]
+		new Button(panelServicios) => [
+				caption = "Gestion de servicios"
+				onClick[ |new GestionServiciosWindow(this).open]
+			]
 	}
 	
 	def crearListadoLocacionesMasPopulares(Panel panel) {
@@ -82,6 +85,10 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 			bindContentsToProperty("capacidad")
 			fixedSize = 130
 		]	
+		new Button(panelLocaciones) => [
+				caption = "Gestion de locaciones"
+				onClick[ |new GestionarLocacionWindow(this).open]
+		]
 	}
 	
 	def crearListadoUsuariosMasActivos(Panel panel) {
@@ -102,7 +109,13 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 				fixedSize = 130
   				bindContentsToProperty("nombreApellido")
 			]
+			new Button(panelUsrs) => [
+				caption = "Gestion de usuarios"
+				onClick[ |new GestionUsuariosWindow(this).open]
+			]
 	}
+	
+
 	
 	def crearListadoEstadisticas(Panel panel){
 		new Panel(panel) => [
