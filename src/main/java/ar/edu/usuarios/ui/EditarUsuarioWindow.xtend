@@ -18,6 +18,7 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 	new(WindowOwner owner, Usuario model) {
 		super(owner, model)
+		title = "Edicion usuario"
 	}
 
 	override protected createFormPanel(Panel mainPanel) {

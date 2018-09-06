@@ -25,8 +25,8 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 
 	new(WindowOwner parent) {
 		super(parent, new Estadisticas)
-		modelObject.getUsuarios()
 		title = "Event OS"
+		modelObject.usuariosMasActivos
 	}
 
 	override protected addActions(Panel actionsPanel) {
@@ -51,7 +51,7 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 	def crearListadoServicios(Panel panel) {
 		val panelServicios = new Panel(panel)
 		new Label(panelServicios)=>[
-			text = "Ultimos servicios:"
+			text = "Ultimos servicios"
 			foreground = Color.DARK_GRAY
 			fontSize = 10
 			alignLeft
@@ -108,9 +108,15 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 	
 	def crearListadoUsuariosMasActivos(Panel panel) {
 		val panelUsrs = new Panel(panel)
-			new Label(panelUsrs).text = "Usuarios mas activos:"	
+			new Label(panelUsrs)=>[
+				text = "Usuarios mas activos"	
+				foreground = Color.DARK_GRAY
+				fontSize = 10
+				alignLeft
+				]
 			val tablaUsrs = new Table<Usuario>(panelUsrs, typeof(Usuario))=>[
 				items <=> "usuariosMasActivos"
+//				ObservableUtils.firePropertyChanged(typeof(Estadisticas), "repoUsuarios", modelObject.repoUsuarios)
 				setNumberVisibleRows(5)
 			]
 		
@@ -149,46 +155,78 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 		
 		new Panel(estaditiscasPanel) => [
 			
+			width = 300
 			layout = new ColumnLayout(2)
 			
 			new Label(it)=>[
 				text = "Cantidad total de eventos:"
+				width = 150
+				alignLeft
 			]
+				
 			new Label(it)=>[
 				value <=> "cantidadTotalEventosOrganizados"
-	
-			]		
+				width = 150
+				alignCenter
+			]
+		
 			new Label(it)=>[
 				text = "Eventos Ultimo mes:"
+				width = 150
+				alignLeft
 			]
+			
 			new Label(it)=>[
 				value <=> "cantidadEventosUltimoMes"
-				alignRight
+				width = 150
+				alignCenter
 			]
-			new Label(it).text = "Eventos exitosos:"
-			
 			new Label(it)=>[
-					value <=> "cantidadEventosExitosos"
+				text = "Eventos exitosos:"
+				width = 150
+				alignLeft
 			]
+			new Label(it)=>[
+				value <=> "cantidadEventosExitosos"
+				width = 150
+				alignCenter
+			]	
 						
-			new Label(it).text = "Eventos fracasados:"
+			new Label(it)=>[
+				text = "Eventos fracasados:"
+				width = 150
+				alignLeft
+			]
 			
 			new Label(it)=>[
-					value <=> "cantidadEventosFracasados"
+				value <=> "cantidadEventosFracasados"
+				width = 150
+				alignCenter
 			]	
 					
-			new Label(it).text = "Entradas vendidas:"
+			new Label(it)=>[
+				text = "Entradas vendidas:"
+				width = 150
+				alignLeft		
+			]
 			
 			new Label(it)=>[
-					value <=> "cantidadEntradasVendidas"
+				value <=> "cantidadEntradasVendidas"
+				width = 150
+				alignCenter
 			]		
-			new Label(it).text = "Invitaciones enviadas:"
 			
 			new Label(it)=>[
-					value <=> "cantidadInvitacionesEnviadas"
+				text = "Invitaciones enviadas:"
+				width = 150
+				alignLeft
+			]
+			
+			new Label(it)=>[
+				value <=> "cantidadInvitacionesEnviadas"
+				width = 150
+				alignRight
 			]	
 		]
 	}
-	
-
 }

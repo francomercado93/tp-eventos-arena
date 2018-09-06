@@ -64,10 +64,11 @@ class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 				items <=> "repositorio.lista"
 				value <=> "usuarioSeleccionado"
 				numberVisibleRows = 8
+//				ObservableUtils.firePropertyChanged(typeof(GestionUsuarios), "usuarios")
 			]
 			new Column<Usuario>(table) => [
 				title = "UserName"
-				fixedSize = 200
+				fixedSize = 100
 				bindContentsToProperty("nombreUsuario")
 			]
 	
@@ -86,7 +87,7 @@ class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 	
 			new Column<Usuario>(table) => [
 				title = "Email"
-				fixedSize = 200
+				fixedSize = 150
 				bindContentsToProperty("mail")
 			]
 		]
