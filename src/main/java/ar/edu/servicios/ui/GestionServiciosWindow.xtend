@@ -4,6 +4,7 @@ import ar.edu.applicationModel.GestionServicios
 import ar.edu.servicios.Servicio
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.bindings.NotNullObservable
+import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
@@ -20,29 +21,25 @@ class GestionServiciosWindow extends SimpleWindow<GestionServicios> {
 
 	new(WindowOwner parent) {
 		super(parent, new GestionServicios)
-
 		title = "Gestion de Servicios"
-
 	}
 
 	def createGridActions(Panel panel) {
 		val elementSelected = new NotNullObservable("servicioSeleccionado")
-		new Panel(panel)=>[
+		new Panel(panel) => [
 			layout = new VerticalLayout
 			new Button(it) => [
 				caption = "Editar"
 				onClick([|this.editarServicio])
-				setAsDefault
 				bindEnabled(elementSelected)
 			]
-	
+
 			new Button(it) => [
 				caption = "Eliminar"
 				onClick([|modelObject.eliminar])
-				setAsDefault
 				bindEnabled(elementSelected)
 			]
-	
+
 			new Button(it) => [
 				caption = "Nuevo servicio"
 				onClick([|this.crearServicio])
@@ -79,36 +76,36 @@ class GestionServiciosWindow extends SimpleWindow<GestionServicios> {
 			this.createGridActions(it)
 		]
 	}
-	
+
 	def crearGridServicios(Panel panel) {
 		new Panel(panel) => [
 			val table = new Table<Servicio>(it, typeof(Servicio)) => [
-			items <=> "repositorio.lista"
-			value <=> "servicioSeleccionado"
-			numberVisibleRows = 8
+				items <=> "repositorio.lista"
+				value <=> "servicioSeleccionado"
+				numberVisibleRows = 8
 			]
 			new Column<Servicio>(table) => [
 				title = "Nombre"
 				fixedSize = 100
 				bindContentsToProperty("descripcion")
 			]
-	
+
 			new Column<Servicio>(table) => [
 				title = "Tarifa Por Kilometro"
 				fixedSize = 60
 				alignRight
 				bindContentsToProperty("tarifaPorKilometro")
 			]
-	
+
 			new Column<Servicio>(table) => [
 				title = "Ubicacion"
-				fixedSize = 200
+				fixedSize = 150
 				bindContentsToProperty("ubicacionServicio")
 			]
 		]
 	}
-	
+
 	override protected addActions(Panel actionsPanel) {
 	}
-	
+
 }

@@ -2,8 +2,10 @@ package ar.edu.servicios.ui
 
 import ar.edu.servicios.Servicio
 import ar.edu.servicios.TipoTarifa
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.bindings.PropertyAdapter
+import org.uqbar.arena.bindings.ValueTransformer
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
@@ -12,6 +14,7 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.geodds.Point
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
@@ -46,13 +49,14 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 				width = 100
 			]
 
-			new Label(it).text = "Tipo tarifa:"
-
-			new Selector(it) => [
-				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoTarifa, "descripcion")
-				value <=> "tipoTarifa"
-			// onSelection[|this.editarTipoTarifa()]
-			]
+//			new Label(it).text = "Tipo tarifa:"
+//
+//			new Selector(it) => [
+//				allowNull(false)
+//				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoTarifa, "descripcion")
+//				(value <=> "tipoTarifa")
+//	
+//			]
 
 			new Label(it).text = "Costo fijo"
 
@@ -71,13 +75,14 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 		new Panel(panel) => [
 			layout = new ColumnLayout(2)
 			new Label(it).text = "Coordenada x:"
-			new TextBox(it) => [
-				(value <=> "ubicacionServicio.x")
+			new Label(it) => [
+				(value <=> "coordenadaX")  
+			
 				width = 100
 			]
 			new Label(it).text = "Coordenada y:"
-			new TextBox(it) => [
-				(value <=> "ubicacionServicio.y")
+			new Label(it) => [
+				(value <=> "coordenadaY")
 				width = 100
 			]
 		]
@@ -100,3 +105,27 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 	}
 
 }
+@Accessors
+class CoordenadaTransformer implements ValueTransformer<Point, Double>{
+	Double coordX
+	Double coordY
+	
+	override getModelType() {
+		Point
+	}
+	
+	override getViewType() {
+		Double
+	}
+	
+	override modelToView(Point valueFromModel) {
+		coordX = valueFromModel.x
+		coordY = valueFromModel.y
+	}
+	
+	override viewToModel(Double valueFromView) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+}
+

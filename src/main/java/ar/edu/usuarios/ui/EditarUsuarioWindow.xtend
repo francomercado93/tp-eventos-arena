@@ -48,12 +48,12 @@ class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 			]
 			new Label(it).text = "Tipo de usuario:"
 
-			new Selector(it) => [
-
-				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoUsuario, "descripcion")
-				// visible()	
+			new Selector<TipoUsuario>(it) => [
+				allowNull(false)
 				value <=> "tipoUsuario"
-			// onSelection(|modelObject.cambiarTipoUsuario())
+				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoUsuario, "descripcion")
+//				val tiposUsuariosPosibles = bindItems(new ObservableProperty("tiposPosibles"))
+//				tiposUsuariosPosibles.adaptWith(typeof(TipoUsuario), "descripcion") 
 			]
 		]
 	}

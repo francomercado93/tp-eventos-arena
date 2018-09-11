@@ -18,6 +18,7 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.commons.model.utils.ObservableUtils
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
@@ -26,7 +27,7 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 	new(WindowOwner parent) {
 		super(parent, new Estadisticas)
 		title = "Event OS"
-		modelObject.usuariosMasActivos
+//		modelObject.obtenerUsuarios()
 	}
 
 	override protected addActions(Panel actionsPanel) {
@@ -70,10 +71,14 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 			fixedSize = 150
 			bindContentsToProperty("tipoTarifa").transformer = [TipoTarifa tipoTarifa | "$ "+ tipoTarifa.costoFijo +" " + tipoTarifa.descripcionCorta ]
 		]
-
-		new Button(panelServicios) => [
+		new Panel(panelServicios)=>[
+			layout = new ColumnLayout(2)
+			new Label(it).text = ""
+			new Button(it) => [
 			caption = "Gestion de servicios"
 			onClick[ |new GestionServiciosWindow(this).open]
+			width = 150
+			]
 		]
 	}
 	
@@ -99,14 +104,19 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 			bindContentsToProperty("capacidad")
 			fixedSize = 150
 		]	
-
-		new Button(panelLocaciones) => [
+		new Panel(panelLocaciones)=>[
+			layout = new ColumnLayout(2)
+			new Label(it).text = ""
+			new Button(it) => [
 			caption = "Gestion de locaciones"
 			onClick[ |new GestionarLocacionWindow(this).open]
+			width = 150
+			]
 		]
 	}
 	
 	def crearListadoUsuariosMasActivos(Panel panel) {
+		
 		val panelUsrs = new Panel(panel)
 			new Label(panelUsrs)=>[
 				text = "Usuarios mas activos"	
@@ -114,10 +124,11 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 				fontSize = 10
 				alignLeft
 				]
+
 			val tablaUsrs = new Table<Usuario>(panelUsrs, typeof(Usuario))=>[
 				items <=> "usuariosMasActivos"
-//				ObservableUtils.firePropertyChanged(typeof(Estadisticas), "repoUsuarios", modelObject.repoUsuarios)
 				setNumberVisibleRows(5)
+				ObservableUtils.firePropertyChanged(modelObject,  "repoUsuarios")
 			]
 		
 			new Column<Usuario>(tablaUsrs) =>[
@@ -136,10 +147,14 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
   				bindContentsToProperty("apellido")
 			]
 			
-			new Button(panelUsrs) => [
+			new Panel(panelUsrs)=>[
+				layout = new ColumnLayout(2)
+				new Label(it).text = ""
+				new Button(it) => [
 				caption = "Gestion de usuarios"
 				onClick[ |new GestionUsuariosWindow(this).open]
-
+				width = 150
+				]
 			]
 	}
 	

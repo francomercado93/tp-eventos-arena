@@ -3,6 +3,7 @@ package ar.edu.tp.runnable
 import ar.edu.eventos.EventoAbierto
 import ar.edu.eventos.EventoCerrado
 import ar.edu.eventos.Locacion
+import ar.edu.repositorios.RepositorioLocacion
 import ar.edu.repositorios.RepositorioServicios
 import ar.edu.repositorios.RepositorioUsuarios
 import ar.edu.servicios.Servicio
@@ -22,28 +23,25 @@ import org.uqbar.commons.applicationContext.ApplicationContext
 import org.uqbar.geodds.Point
 
 import static org.mockito.Mockito.*
-import ar.edu.repositorios.RepositorioLocacion
 
 class EventosBootstrap extends CollectionBasedBootstrap {
 
-
 	new() {
-
 		ApplicationContext.instance.configureSingleton(typeof(Usuario), new RepositorioUsuarios)
 		ApplicationContext.instance.configureSingleton(typeof(Servicio), new RepositorioServicios)
 		ApplicationContext.instance.configureSingleton(typeof(Locacion), new RepositorioLocacion)
 	}
-	
+
 	override run() {
 		val RepositorioUsuarios repoUsuario = ApplicationContext.instance.getSingleton(
 			typeof(Usuario)) as RepositorioUsuarios
-			
+
 		val RepositorioServicios repoServicios = ApplicationContext.instance.getSingleton(
 			typeof(Servicio)) as RepositorioServicios
-			
+
 		val RepositorioLocacion repoLocaciones = ApplicationContext.instance.getSingleton(
 			typeof(Locacion)) as RepositorioLocacion
-			
+
 		val animacionMago = new Servicio() => [
 			tipoTarifa = new TarifaPorHora(300, 12)
 			descripcion = "Animacion Mago"
@@ -77,13 +75,13 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			puntoGeografico = new Point(-34.480860, -58.518295)
 			superficie = 4.8d
 		]
-		
-		val hipodromoPalermo = new Locacion() =>[
+
+		val hipodromoPalermo = new Locacion() => [
 			descripcion = "hipodromo Palermo"
 			puntoGeografico = new Point(-34.567684, -58.429661)
 			superficie = 4.8d
 		]
-			 
+
 		val lollapalooza = new EventoAbierto() => [
 			nombreEvento = "lollapalooza"
 			inicioEvento = LocalDateTime.of(2018, 03, 27, 18, 00)
@@ -93,9 +91,9 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			edadMinima = 18
 			valorEntrada = 500
 			contratarServicio(animacionMago)
-			
+
 		]
-		
+
 		val minifiesta1 = new EventoCerrado() => [
 			nombreEvento = "minifiesta1"
 			inicioEvento = LocalDateTime.of(2018, 05, 31, 14, 00)
@@ -123,13 +121,14 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 				new Point(-34.534199, -58.490467))
 			fechaHoraActual = LocalDateTime.of(2018, 02, 15, 15, 30)
 			fechaNacimiento = LocalDate.of(1977, 08, 09)
+			tipoUsuario = new Profesional
 			miTarjeta = new CreditCard
 			servicioTarjeta = mockearCreditCardServicePagoExitoso(miTarjeta, lollapalooza.valorEntrada)
 			comprarEntrada(lollapalooza)
 			radioCercania = 30
 		]
 		val juan = new Usuario() => [
-			nombreUsuario= "juan"
+			nombreUsuario = "juan"
 			nombre = "Juan Martin"
 			apellido = "Del Potro"
 			mail = "juan00@gmail.com"
@@ -139,8 +138,9 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			miTarjeta = new CreditCard
 			servicioTarjeta = mockearCreditCardServicePagoExitoso(miTarjeta, lollapalooza.valorEntrada)
 			comprarEntrada(lollapalooza)
+			tipoUsuario = new Amateur
 		]
-		
+
 		val agustina = new Usuario() => [
 			nombreUsuario = "agustina"
 			nombre = "Agustina"
@@ -153,9 +153,9 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			tipoUsuario = new Profesional
 			crearEvento(minifiesta2)
 			crearEvento(lollapalooza)
-			
+
 		]
-		
+
 		val agustin = new Usuario() => [
 			nombreUsuario = "agustin"
 			nombre = "Agustin"
@@ -170,7 +170,7 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			invitarUsuario(juan, minifiesta1, 5)
 			invitarUsuario(maxi, minifiesta1, 1)
 		]
-		
+
 		repoUsuario => [
 			create(maxi)
 			create(juan)
@@ -181,7 +181,7 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 //			create(maria)
 //			create(gaston)
 		]
-		repoServicios =>[
+		repoServicios => [
 			create(animacionMago)
 			create(candyBarWillyWonka)
 			create(cateringFoodParty)
@@ -192,10 +192,15 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			create(salonFiesta)
 			create(tecnopolis)
 		]
+
 	}
+
 	def CreditCardService mockearCreditCardServicePagoExitoso(CreditCard tarjeta, double valor) {
 		val servicioTarjeta = mock(typeof(CreditCardService))
-		when(servicioTarjeta.pay(tarjeta, valor)).thenReturn(new CCResponse()=>[statusCode = 0 statusMessage = "Transaccion Exitosa"])
+		when(servicioTarjeta.pay(tarjeta, valor)).thenReturn(new CCResponse() => [
+			statusCode = 0
+			statusMessage = "Transaccion Exitosa"
+		])
 		return servicioTarjeta
 	}
 }
