@@ -49,8 +49,8 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 				width = 100
 			]
 
-//			new Label(it).text = "Tipo tarifa:"
-//
+			new Label(it).text = "Tipo tarifa:"
+
 //			new Selector(it) => [
 //				allowNull(false)
 //				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoTarifa, "descripcion")
@@ -61,7 +61,7 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 			new Label(it).text = "Costo fijo"
 
 			new NumericField(it) => [
-				value <=> "tipoTarifa.costoFijo"
+				value <=> "nuevaTarifa"
 				width = 100
 			]
 
@@ -75,16 +75,15 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 		new Panel(panel) => [
 			layout = new ColumnLayout(2)
 			new Label(it).text = "Coordenada x:"
-			new Label(it) => [
-				(value <=> "coordenadaX")  
-			
+			new TextBox(it) => [
+				(value <=> "coordX")  
 				width = 100
 			]
-			new Label(it).text = "Coordenada y:"
-			new Label(it) => [
-				(value <=> "coordenadaY")
-				width = 100
-			]
+//			new Label(it).text = "Coordenada y:"
+//			new Label(it) => [
+//				(value <=> "ubicacionServicio.y")
+//				width = 100
+//			]
 		]
 	}
 
