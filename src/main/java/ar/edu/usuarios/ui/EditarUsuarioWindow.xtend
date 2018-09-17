@@ -46,10 +46,12 @@ class EditarUsuarioWindow extends TransactionalDialog<Usuario> {
 				(value <=> "fechaNacimiento").transformer = new LocalDateTransformer
 				width = 200
 			]
-			new Label(it).text = "Tipo de usuario:"
-
+			new Label(it).text = "Tipo de usuario Actual:"
+            
+           new Label(it).value <=> "tipoUsuario.descripcion"
+                
 			new Selector<TipoUsuario>(it) => [
-				allowNull(false)
+				
 				value <=> "tipoUsuario"
 				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoUsuario, "descripcion")
 //				val tiposUsuariosPosibles = bindItems(new ObservableProperty("tiposPosibles"))

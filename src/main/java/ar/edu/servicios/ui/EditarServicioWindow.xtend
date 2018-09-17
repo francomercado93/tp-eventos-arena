@@ -39,9 +39,9 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 				value <=> "descripcion"
 				width = 200
 			]
-			
+
 			crearPanelCoordenadas(it)
-			
+
 			new Label(it).text = "Tarifa por kilometro:"
 
 			new NumericField(it) => [
@@ -49,14 +49,15 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 				width = 100
 			]
 
-			new Label(it).text = "Tipo tarifa:"
+			new Label(it).text = "Tipo tarifa actual:"
+			new Label(it).value <=> "tipoTarifa.descripcion"
+			new Selector(it) => [
+				allowNull(false)
+				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoTarifa, "descripcion")
+				(value <=> "tipoTarifa")
 
-//			new Selector(it) => [
-//				allowNull(false)
-//				(items <=> "tiposPosibles").adapter = new PropertyAdapter(TipoTarifa, "descripcion")
-//				(value <=> "tipoTarifa")
-//	
-//			]
+			]
+			new Label(it).text = ""
 
 			new Label(it).text = "Costo fijo"
 
@@ -70,20 +71,16 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 
 	def crearPanelCoordenadas(Panel panel) {
 
-		new Label(panel).text = "Ubicacion:"
+		new Label(panel).text = "Coordenada x:"
+		new TextBox(panel) => [
+			(value <=> "coordX")
+			width = 100
+		]
 
-		new Panel(panel) => [
-			layout = new ColumnLayout(2)
-			new Label(it).text = "Coordenada x:"
-			new TextBox(it) => [
-				(value <=> "coordX")  
-				width = 100
-			]
-//			new Label(it).text = "Coordenada y:"
-//			new Label(it) => [
-//				(value <=> "ubicacionServicio.y")
-//				width = 100
-//			]
+		new Label(panel).text = "Coordenada y:"
+		new TextBox(panel) => [
+			(value <=> "coordY")
+			width = 100
 		]
 	}
 
@@ -91,6 +88,7 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 		new Button(actions) => [
 			caption = "Aceptar"
 			onClick [|this.accept]
+
 			setAsDefault
 			disableOnError
 		]
@@ -104,27 +102,3 @@ class EditarServicioWindow extends TransactionalDialog<Servicio> {
 	}
 
 }
-@Accessors
-class CoordenadaTransformer implements ValueTransformer<Point, Double>{
-	Double coordX
-	Double coordY
-	
-	override getModelType() {
-		Point
-	}
-	
-	override getViewType() {
-		Double
-	}
-	
-	override modelToView(Point valueFromModel) {
-		coordX = valueFromModel.x
-		coordY = valueFromModel.y
-	}
-	
-	override viewToModel(Double valueFromView) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
-}
-

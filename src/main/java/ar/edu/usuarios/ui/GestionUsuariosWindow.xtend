@@ -90,7 +90,7 @@ class GestionUsuariosWindow extends SimpleWindow<GestionUsuarios> {
 				fixedSize = 150
 				bindContentsToProperty("mail")
 			]
-		]
+	]	
 	}
 	// ** Acciones
 	// ********************************************************

@@ -46,39 +46,52 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			tipoTarifa = new TarifaPorHora(300, 12)
 			descripcion = "Animacion Mago"
 			tarifaPorKilometro = 7
-			ubicacionServicio = new Point(-34.515938, -58.485094)
+			coordX=-2.46
+			coordY=-58.645
+			setUbicacionServicio
 		]
 		val cateringFoodParty = new Servicio() => [
 			descripcion = "Catering Food Party"
 			tipoTarifa = new TarifaPersona(15, 0.8)
 			tarifaPorKilometro = 5
-			ubicacionServicio = new Point(-34.513628, -58.523435)
+			coordX=-2.46
+			coordY=-58.645
+			setUbicacionServicio
 		]
 		val candyBarWillyWonka = new Servicio() => [
 			descripcion = "candy Bar Willy Wonka"
 			tipoTarifa = new TarifaFija(750)
 			tarifaPorKilometro = 20
-			ubicacionServicio = new Point(-34.569370, -58.484621)
+			coordX=-2.46
+			coordY=-58.645
+			setUbicacionServicio
 		]
 		val salonFiesta = new Locacion() => [
 			descripcion = "Salon de Fiesta"
-			puntoGeografico = new Point(-34.603695, -58.410973)
+			coordenadaX=-42.2
+			coordenadaY=-564.45
+			setUbicacion
 			superficie = 10d
 		]
 		val tecnopolis = new Locacion() => [
 			descripcion = "Tecnopolis"
-			puntoGeografico = new Point(-34.559276, -58.505377)
-			superficie = 6d
+			coordenadaX=-42.2
+			coordenadaY=-564.45
+			setUbicacion
 		]
 		val hipodromo = new Locacion() => [
 			descripcion = "hipodromo San Isidro"
-			puntoGeografico = new Point(-34.480860, -58.518295)
+			coordenadaX=-42.2
+			coordenadaY=-564.45
+			setUbicacion
 			superficie = 4.8d
 		]
 
 		val hipodromoPalermo = new Locacion() => [
 			descripcion = "hipodromo Palermo"
-			puntoGeografico = new Point(-34.567684, -58.429661)
+			coordenadaX=-42.2
+			coordenadaY=-564.45
+			setUbicacion
 			superficie = 4.8d
 		]
 
@@ -118,7 +131,7 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			apellido = "Coronel"
 			mail = "maxigg@gmail.com"
 			setDireccion("Carlos Francisco Melo", 2356, "Vicente Lopez", "Buenos Aires",
-				new Point(-34.534199, -58.490467))
+				new Point(-1280.19, -58.4))
 			fechaHoraActual = LocalDateTime.of(2018, 02, 15, 15, 30)
 			fechaNacimiento = LocalDate.of(1977, 08, 09)
 			tipoUsuario = new Profesional
@@ -126,13 +139,14 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			servicioTarjeta = mockearCreditCardServicePagoExitoso(miTarjeta, lollapalooza.valorEntrada)
 			comprarEntrada(lollapalooza)
 			radioCercania = 30
+			tipoUsuario = new Profesional
 		]
 		val juan = new Usuario() => [
 			nombreUsuario = "juan"
 			nombre = "Juan Martin"
 			apellido = "Del Potro"
 			mail = "juan00@gmail.com"
-			setDireccion("Quintana", 2551, "San Martin", "Buenos Aires", new Point(-34.578651, -58.549614))
+			setDireccion("Quintana", 2551, "San Martin", "Buenos Aires", new Point(34.5, -33.4))
 			fechaHoraActual = LocalDateTime.of(2018, 03, 15, 22, 00)
 			fechaNacimiento = LocalDate.of(2000, 01, 02)
 			miTarjeta = new CreditCard
@@ -146,14 +160,14 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			nombre = "Agustina"
 			apellido = "Pastor"
 			mail = "agus2000@gmail.com"
-			setDireccion("Quintana", 2551, "San Martin", "Buenos Aires", new Point(-34.578651, -58.549614))
+			setDireccion("Quintana", 2551, "San Martin", "Buenos Aires", new Point(-87.56, 45.4))
 			fechaHoraActual = LocalDateTime.of(2018, 03, 15, 22, 00)
 			fechaNacimiento = LocalDate.of(2000, 01, 02)
 			radioCercania = 30
 			tipoUsuario = new Profesional
 			crearEvento(minifiesta2)
 			crearEvento(lollapalooza)
-
+            tipoUsuario = new Amateur
 		]
 
 		val agustin = new Usuario() => [
@@ -161,7 +175,7 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			nombre = "Agustin"
 			apellido = "Gonzalez"
 			mail = "agustinKpo@gmail.com"
-			setDireccion("Quintana", 2551, "San Martin", "Buenos Aires", new Point(-34.578651, -58.549614))
+			setDireccion("Quintana", 2551, "San Martin", "Buenos Aires", new Point(-89.21, 44.45))
 			fechaHoraActual = LocalDateTime.of(2018, 03, 15, 22, 00)
 			fechaNacimiento = LocalDate.of(2000, 01, 02)
 			tipoUsuario = new Amateur
@@ -169,6 +183,7 @@ class EventosBootstrap extends CollectionBasedBootstrap {
 			invitarUsuario(agustina, minifiesta1, 6)
 			invitarUsuario(juan, minifiesta1, 5)
 			invitarUsuario(maxi, minifiesta1, 1)
+			tipoUsuario = new Amateur
 		]
 
 		repoUsuario => [

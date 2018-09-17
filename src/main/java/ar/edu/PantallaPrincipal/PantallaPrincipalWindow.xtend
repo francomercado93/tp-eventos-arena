@@ -239,8 +239,8 @@ class PantallaPrincipalWindow extends SimpleWindow<Estadisticas> {
 			
 			new Label(it)=>[
 				value <=> "cantidadInvitacionesEnviadas"
-				width = 150
-				alignRight
+				width = 151
+				alignCenter
 			]	
 		]
 	}

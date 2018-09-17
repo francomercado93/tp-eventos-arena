@@ -15,6 +15,7 @@ class EditarLocacionWindow extends TransactionalDialog<Locacion> {
 
 	new(WindowOwner owner, Locacion model) {
 		super(owner, model)
+		title= "Editor de Locaciones"
 	}
 
 	override createFormPanel(Panel mainPanel) {
@@ -46,12 +47,12 @@ class EditarLocacionWindow extends TransactionalDialog<Locacion> {
 			layout = new ColumnLayout(2)
 			new Label(it).text = "Coordenada x:"
 			new TextBox(it) => [
-				(value <=> "puntoGeografico.x")
+				(value <=> "coordenadaX")
 				width = 100
 			]
 			new Label(it).text = "Coordenada y:"
 			new TextBox(it) => [
-				(value <=> "puntoGeografico.y")
+				(value <=> "coordenadaY")
 				width = 100
 			]
 		]

@@ -17,6 +17,7 @@ class GestionarLocacionWindow extends SimpleWindow<GestionarLocacion> {
 
 	new(WindowOwner parent) {
 		super(parent, new GestionarLocacion)
+		title= "Gestion de Locaciones"
 	}
 
 	override createFormPanel(Panel mainPanel) {
@@ -82,6 +83,7 @@ class GestionarLocacionWindow extends SimpleWindow<GestionarLocacion> {
 				title = "coordenadas"
 				fixedSize = 100
 				bindContentsToProperty("puntoGeografico")
+				
 			]
 		]
 	}

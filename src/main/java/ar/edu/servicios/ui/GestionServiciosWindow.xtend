@@ -64,8 +64,8 @@ class GestionServiciosWindow extends SimpleWindow<GestionServicios> {
 
 	def void editarServicio() {
 		new EditarServicioWindow(this, modelObject.servicioSeleccionado) => [
-			onAccept[this.modelObject.actualizar()]
-			open
+			onAccept[this.modelObject.actualizar() ]
+	        open
 		]
 	}
 
